@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">To Do To Done</string>
+    <string name="new_list">New List</string>
+    <string name="empty_project_list">Create a list to get started</string>
 </resources>
