@@ -11,7 +11,7 @@ data class Task(
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
-    val id: Int,
+    val id: Int = 0,
 
     @ColumnInfo(name = "project_id")
     val projectId: Int,
@@ -20,9 +20,12 @@ data class Task(
     val taskDescription: String,
 
     @ColumnInfo(name = "creation_date")
-    val creationDate: Date,
+    val creationDate: Date = Date(),
 
     @ColumnInfo(name = "completion_date")
-    val completion_date: Date?
+    var completion_date: Date? = null,
+
+    @ColumnInfo(name = "is_deleted")
+    var isDeleted: Boolean = false
 
 )

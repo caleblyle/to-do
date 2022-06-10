@@ -26,4 +26,16 @@ class ProjectListViewModel @Inject constructor(
         }
     }
 
+    fun deleteProject(project: Project) {
+        viewModelScope.launch(Dispatchers.IO) {
+            appRepository.deleteProject(project)
+        }
+    }
+
+    fun undoDeleteProject(project: Project) {
+        viewModelScope.launch(Dispatchers.IO) {
+            appRepository.undoDeleteProject(project)
+        }
+    }
+
 }

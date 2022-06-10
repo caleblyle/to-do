@@ -16,6 +16,6 @@ interface TaskDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insert(vararg task: Task)
 
-    @Delete
-    fun delete(task: Task)
+    @Update
+    fun update(task: Task)
 }

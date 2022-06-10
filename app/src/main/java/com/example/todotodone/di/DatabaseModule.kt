@@ -22,7 +22,7 @@ class DatabaseModule {
     }
 
     @Provides
-    fun provideToDoListDao(appDatabase: AppDatabase): ProjectDao {
+    fun provideProjectDao(appDatabase: AppDatabase): ProjectDao {
         return appDatabase.projectDao()
     }
 
