@@ -4,7 +4,6 @@
     <string name="empty_project_list">Create a list to get started</string>
     <string name="create">Create</string>
     <string name="cancel">Cancel</string>
-    <string name="new_project">New List</string>
     <string name="project_label">Name</string>
     <string name="options">Options</string>
 </resources>
