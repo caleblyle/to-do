@@ -6,7 +6,6 @@ import androidx.test.core.app.ApplicationProvider
 import com.example.todotodone.data.AppDatabase
 import com.example.todotodone.data.dao.TaskDao
 import com.example.todotodone.data.entities.Task
-import kotlinx.coroutines.runBlocking
 import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.After

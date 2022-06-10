@@ -13,7 +13,8 @@ import com.example.todotodone.data.entities.ToDoList
         ToDoList::class,
         Task::class
     ],
-    version = 1)
+    version = 1,
+    exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class AppDatabase: RoomDatabase() {
 
@@ -23,20 +24,13 @@ abstract class AppDatabase: RoomDatabase() {
 
     companion object {
 
-        //Singleton to get the database instance
-        @Volatile
-        private var appDatabase: AppDatabase? = null
-
-        fun getDatabase(context: Context): AppDatabase {
-            return appDatabase ?: synchronized(this) {
-                val db = Room.databaseBuilder(
-                    context.applicationContext,
-                    AppDatabase::class.java,
-                    "todo_database"
-                ).build()
-                appDatabase = db
-                db
-            }
+        fun buildDatabase(context: Context): AppDatabase {
+            return Room.databaseBuilder(
+                context.applicationContext,
+                AppDatabase::class.java,
+                "todo_database"
+            ).build()
         }
+
     }
 }
