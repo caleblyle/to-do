@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.todotodone.data.AppRepository
-import com.example.todotodone.data.entities.ToDoList
+import com.example.todotodone.data.entities.Project
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -15,9 +15,9 @@ class ProjectListViewModel @Inject constructor(
     private val appRepository: AppRepository
 ) : ViewModel() {
 
-    private val _projects = getAllProjects()
+    private val _projects = appRepository.getProjects()
 
-    val projects: LiveData<List<ToDoList>>
+    val projects: LiveData<List<Project>>
         get() = _projects
 
     fun addProject(name: String) {
@@ -26,6 +26,4 @@ class ProjectListViewModel @Inject constructor(
         }
     }
 
-    private fun getAllProjects() = appRepository.getProjects()
-        //List(30) { i -> ToDoList(i, "List with a longer name to see how it handles wrapping $i", Date()) }
 }

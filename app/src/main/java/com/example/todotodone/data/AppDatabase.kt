@@ -3,14 +3,14 @@ package com.example.todotodone.data
 import android.content.Context
 import androidx.room.*
 import com.example.todotodone.data.converters.Converters
+import com.example.todotodone.data.dao.ProjectDao
 import com.example.todotodone.data.dao.TaskDao
-import com.example.todotodone.data.dao.ToDoListDao
 import com.example.todotodone.data.entities.Task
-import com.example.todotodone.data.entities.ToDoList
+import com.example.todotodone.data.entities.Project
 
 @Database(
     entities = [
-        ToDoList::class,
+        Project::class,
         Task::class
     ],
     version = 1,
@@ -19,7 +19,7 @@ import com.example.todotodone.data.entities.ToDoList
 abstract class AppDatabase: RoomDatabase() {
 
     //DAOs
-    abstract fun toDoListDao(): ToDoListDao
+    abstract fun projectDao(): ProjectDao
     abstract fun taskDao(): TaskDao
 
     companion object {

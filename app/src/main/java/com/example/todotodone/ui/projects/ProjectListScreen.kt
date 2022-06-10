@@ -24,8 +24,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.todotodone.R
-import com.example.todotodone.data.entities.ToDoList
-import com.example.todotodone.ui.core.TextInputDialog
+import com.example.todotodone.data.entities.Project
+import com.example.todotodone.ui.core.TextDialog
 import com.example.todotodone.ui.theme.ToDoToDoneTheme
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
@@ -55,11 +55,11 @@ fun ProjectListScreen(
         }
     }
     if (openDialog) {
-        TextInputDialog(
-            "New List",
-            "Name",
-            "Cancel",
-            "Create",
+        TextDialog(
+            stringResource(id = R.string.new_list),
+            stringResource(id = R.string.project_label),
+            stringResource(id = R.string.cancel),
+            stringResource(id = R.string.create),
             { openDialog = false },
             { newToDoListName ->
                 projectListViewModel.addProject(newToDoListName)
@@ -70,14 +70,14 @@ fun ProjectListScreen(
 }
 
 @Composable
-fun ProjectList(list: List<ToDoList>, modifier: Modifier = Modifier) {
+fun ProjectList(list: List<Project>, modifier: Modifier = Modifier) {
     LazyColumn(modifier = modifier) {
         items(
             items = list,
-            key = { todoList -> todoList.id }
-        ) { todoList ->
+            key = { project -> project.id }
+        ) { project ->
             ToDoListCard(
-                name = todoList.listName,
+                name = project.name,
                 onClick = { }
             )
         }

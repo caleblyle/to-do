@@ -13,8 +13,8 @@ data class Task(
     @ColumnInfo(name = "id")
     val id: Int,
 
-    @ColumnInfo(name = "todo_list_id")
-    val toDoListId: Int,
+    @ColumnInfo(name = "project_id")
+    val projectId: Int,
 
     @ColumnInfo(name = "task_description")
     val taskDescription: String,

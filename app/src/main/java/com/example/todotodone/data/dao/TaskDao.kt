@@ -9,9 +9,9 @@ interface TaskDao {
     @Query("""
         SELECT * 
         FROM tasks 
-        WHERE todo_list_id = :toDoListId 
+        WHERE project_id = :projectId 
     """)
-    fun getTasksForToDoList(toDoListId: Int) : List<Task>
+    fun getTasksForToDoList(projectId: Int) : List<Task>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insert(vararg task: Task)

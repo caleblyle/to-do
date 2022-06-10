@@ -3,7 +3,7 @@ package com.example.todotodone.di
 import android.content.Context
 import com.example.todotodone.data.AppDatabase
 import com.example.todotodone.data.dao.TaskDao
-import com.example.todotodone.data.dao.ToDoListDao
+import com.example.todotodone.data.dao.ProjectDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -22,8 +22,8 @@ class DatabaseModule {
     }
 
     @Provides
-    fun provideToDoListDao(appDatabase: AppDatabase): ToDoListDao {
-        return appDatabase.toDoListDao()
+    fun provideToDoListDao(appDatabase: AppDatabase): ProjectDao {
+        return appDatabase.projectDao()
     }
 
     @Provides

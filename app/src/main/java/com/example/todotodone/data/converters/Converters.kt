@@ -3,7 +3,6 @@ package com.example.todotodone.data.converters
 import androidx.room.TypeConverter
 import java.util.*
 
-
 class Converters {
     @TypeConverter
     fun convertLongToDate(value: Long?): Date? {
