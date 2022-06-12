@@ -15,20 +15,16 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 class DatabaseModule {
 
-    @Provides
     @Singleton
-    fun provideAppDatabase(@ApplicationContext appContext: Context) : AppDatabase {
-        return AppDatabase.buildDatabase(appContext)
-    }
-
     @Provides
-    fun provideProjectDao(appDatabase: AppDatabase): ProjectDao {
-        return appDatabase.projectDao()
-    }
+    fun provideAppDatabase(@ApplicationContext appContext: Context) = AppDatabase.buildDatabase(appContext)
 
+    @Singleton
     @Provides
-    fun provideTaskDao(appDatabase: AppDatabase): TaskDao {
-        return appDatabase.taskDao()
-    }
+    fun provideProjectDao(appDatabase: AppDatabase) = appDatabase.projectDao()
+
+    @Singleton
+    @Provides
+    fun provideTaskDao(appDatabase: AppDatabase) = appDatabase.taskDao()
 
 }

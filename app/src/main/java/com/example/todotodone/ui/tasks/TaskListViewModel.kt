@@ -53,4 +53,10 @@ class TaskListViewModel @Inject constructor(
             _isProjectDeleted.postValue(true)
         }
     }
+
+    fun changeTaskCompletion(task: Task, checked: Boolean) {
+        viewModelScope.launch(Dispatchers.IO) {
+            taskRepository.changeCompletionState(task, checked)
+        }
+    }
 }

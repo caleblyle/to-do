@@ -27,5 +27,8 @@ class TaskRepository @Inject constructor(
         taskDao.insert(newTask)
     }
 
-
+    fun changeCompletionState(task: Task, checked: Boolean) {
+        val taskToUpdate = task.copy(isComplete = checked)
+        taskDao.update(taskToUpdate)
+    }
 }

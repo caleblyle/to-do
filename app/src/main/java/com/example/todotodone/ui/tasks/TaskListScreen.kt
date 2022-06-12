@@ -1,19 +1,26 @@
 package com.example.todotodone.ui.tasks
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.todotodone.R
 import com.example.todotodone.data.entities.Task
@@ -82,6 +89,11 @@ fun TaskListScreen(
         } else {
             TaskList(
                 list = tasks!!,
+                onTaskCompletionChanged = { task, checked ->
+                    scope.launch {
+                        taskListViewModel.changeTaskCompletion(task, checked)
+                    }
+                },
                 onDeleteRequest = {
                     scope.launch {
                         taskListViewModel.deleteTask(it)
@@ -127,19 +139,73 @@ fun TaskListScreen(
 @Composable
 fun TaskList(
     list: List<Task>,
+    onTaskCompletionChanged: (Task, Boolean) -> Unit,
     onDeleteRequest: (Task) -> Unit,
     modifier: Modifier = Modifier
 ) {
     LazyColumn(modifier = modifier) {
         items(
             items = list,
-            key = { project -> project.id }
+            key = { task -> task.id }
         ) { task ->
-            ProjectCard(
-                name = task.taskDescription,
-                onClick = { },
-                onDeleteClick = { onDeleteRequest(task) }
+            TaskItem(
+                task = task,
+                checked = task.isComplete,
+                onCheckedChange = { checked -> onTaskCompletionChanged(task, checked) },
+                onDeleteClick = { onDeleteRequest(it) }
             )
+            /*if(index < (list.size - 1)) {
+                Divider(color = Color.Black, thickness = 1.dp)
+            }*/
         }
     }
+}
+
+@Composable
+fun TaskItem(
+    task: Task,
+    checked: Boolean,
+    onCheckedChange: (Boolean) -> Unit,
+    onDeleteClick: (Task) -> Unit
+) {
+    var openMenu by remember { mutableStateOf(false) }
+
+    Row(modifier = Modifier.padding(8.dp)) {
+        Checkbox(
+            checked = checked,
+            onCheckedChange = { checked -> onCheckedChange(checked) }
+        )
+        Column(
+            modifier = Modifier
+                .weight(1f)
+                .padding(8.dp)
+        ) {
+            Text(task.taskDescription)
+        }
+        Column {
+            IconButton(onClick = { openMenu = true }) {
+                Icon(
+                    imageVector = Icons.Filled.MoreVert,
+                    contentDescription = stringResource(R.string.options)
+                )
+            }
+            if(openMenu) {
+                DropdownMenu(
+                    expanded = openMenu,
+                    onDismissRequest = { openMenu = false}
+                ) {
+                    DropdownMenuItem(
+                        onClick = {
+                            onDeleteClick(task)
+                            openMenu = false
+                        }
+                    )
+                    {
+                        Text("Delete")
+                    }
+                }
+            }
+        }
+    }
+
 }

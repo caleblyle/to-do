@@ -22,10 +22,12 @@ data class Task(
     @ColumnInfo(name = "creation_date")
     val creationDate: Date = Date(),
 
-    @ColumnInfo(name = "completion_date")
-    var completion_date: Date? = null,
+    @ColumnInfo(name = "is_complete")
+    val isComplete: Boolean = false,
 
     @ColumnInfo(name = "is_deleted")
     var isDeleted: Boolean = false
 
-)
+) {
+
+}

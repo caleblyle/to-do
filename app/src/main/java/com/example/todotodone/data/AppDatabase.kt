@@ -7,6 +7,7 @@ import com.example.todotodone.data.dao.ProjectDao
 import com.example.todotodone.data.dao.TaskDao
 import com.example.todotodone.data.entities.Task
 import com.example.todotodone.data.entities.Project
+import dagger.hilt.android.qualifiers.ApplicationContext
 
 @Database(
     entities = [
@@ -26,7 +27,7 @@ abstract class AppDatabase: RoomDatabase() {
 
         fun buildDatabase(context: Context): AppDatabase {
             return Room.databaseBuilder(
-                context.applicationContext,
+                context,
                 AppDatabase::class.java,
                 "todo_database"
             ).build()
