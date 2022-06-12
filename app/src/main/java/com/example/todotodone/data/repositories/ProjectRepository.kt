@@ -1,4 +1,4 @@
-package com.example.todotodone.data
+package com.example.todotodone.data.repositories
 
 import androidx.lifecycle.LiveData
 import com.example.todotodone.data.dao.ProjectDao
@@ -6,16 +6,21 @@ import com.example.todotodone.data.dao.TaskDao
 import com.example.todotodone.data.entities.Project
 import javax.inject.Inject
 
-class AppRepository @Inject constructor(
-    private val projectDao: ProjectDao,
-    private val taskDao: TaskDao
+class ProjectRepository @Inject constructor(
+    private val projectDao: ProjectDao
 ) {
 
     fun getProjects(): LiveData<List<Project>> = projectDao.getAll()
 
+    fun getProjectName(projectId: Int): LiveData<String> = projectDao.getProjectName(projectId)
+
     fun deleteProject(project: Project) {
         project.isDeleted = true
         projectDao.update(project)
+    }
+
+    fun deleteProjectById(projectId: Int) {
+        projectDao.setProjectDeleted(projectId)
     }
 
     fun undoDeleteProject(project: Project) {

@@ -63,8 +63,6 @@ fun ProjectCard(
                     }
                 }
             }
-
-            //TODO: Context menu for delete?
         }
     }
 }

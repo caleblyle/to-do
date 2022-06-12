@@ -1,5 +1,6 @@
 package com.example.todotodone.ui.core
 
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.runtime.*
@@ -38,7 +39,13 @@ fun TextDialog(
                 value = newItemText,
                 onValueChange = { newItemText = it },
                 label = { Text(label) },
-                keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Sentences, imeAction = ImeAction.Done)
+                keyboardOptions = KeyboardOptions(
+                    capitalization = KeyboardCapitalization.Sentences,
+                    imeAction = ImeAction.Done
+                ),
+                keyboardActions = KeyboardActions(
+                    onDone = { onConfirmClick(newItemText) }
+                )
             )
         },
         dismissButton = {

@@ -1,9 +1,16 @@
 <resources>
     <string name="app_name">To Do To Done</string>
     <string name="new_list">New List</string>
+    <string name="new_task">New Task</string>
     <string name="empty_project_list">Create a list to get started</string>
+    <string name="empty_task_list">Create a task to get started</string>
     <string name="create">Create</string>
     <string name="cancel">Cancel</string>
+    <string name="back">Back</string>
+    <string name="delete_project">Delete Project</string>
     <string name="project_label">Name</string>
     <string name="options">Options</string>
+    <string name="confirm">Confirm</string>
+    <string name="confirm_project_delete_title">Confirm Delete</string>
+    <string name="confirm_project_delete_body">Are you sure you want to delete this list?</string>
 </resources>

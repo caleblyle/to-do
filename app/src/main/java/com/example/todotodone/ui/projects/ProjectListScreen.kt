@@ -4,12 +4,9 @@ import android.annotation.SuppressLint
 import android.content.res.Configuration
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Scaffold
-import androidx.compose.material.ScaffoldState
-import androidx.compose.material.SnackbarResult
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -29,14 +26,16 @@ import kotlinx.coroutines.launch
 fun ProjectListScreen(
     modifier: Modifier = Modifier,
     projectListViewModel: ProjectListViewModel = hiltViewModel(),
-    onProjectClick: (String) -> Unit,
+    onProjectClick: (Int) -> Unit,
 ) {
     val projects by projectListViewModel.projects.observeAsState()
     var openDialog by rememberSaveable { mutableStateOf(false) }
     val scaffoldState = rememberScaffoldState()
+    val scope = rememberCoroutineScope()
 
     Scaffold(
         scaffoldState = scaffoldState,
+        topBar = { TopAppBar(title = { Text("Projects") }) },
         floatingActionButton = {
             StyledFloatingActionButton(
                 icon = Icons.Filled.Add,
@@ -51,9 +50,18 @@ fun ProjectListScreen(
         } else {
             ProjectList(
                 list = projects!!,
-                scaffoldState = scaffoldState,
-                onDelete = { projectListViewModel.deleteProject(it) },
-                onUndoDelete = { projectListViewModel.undoDeleteProject(it) },
+                onDeleteRequest = {
+                    scope.launch {
+                        projectListViewModel.deleteProject(it)
+                        val snackBarResult = scaffoldState.snackbarHostState.showSnackbar(
+                            "Deleted ${it.name}",
+                            actionLabel = "Undo"
+                        )
+                        if (snackBarResult == SnackbarResult.ActionPerformed) {
+                            projectListViewModel.undoDeleteProject(it)
+                        }
+                    }
+                },
                 onProjectClick = onProjectClick,
                 modifier = modifier
             )
@@ -77,14 +85,10 @@ fun ProjectListScreen(
 @Composable
 fun ProjectList(
     list: List<Project>,
-    scaffoldState: ScaffoldState,
-    onDelete: (Project) -> Unit,
-    onUndoDelete: (Project) -> Unit,
-    onProjectClick: (String) -> Unit,
+    onDeleteRequest: (Project) -> Unit,
+    onProjectClick: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val scope = rememberCoroutineScope()
-
     LazyColumn(modifier = modifier) {
         items(
             items = list,
@@ -92,19 +96,8 @@ fun ProjectList(
         ) { project ->
             ProjectCard(
                 name = project.name,
-                onClick = { onProjectClick(project.name) },
-                onDeleteClick = {
-                    scope.launch {
-                        onDelete(project)
-                        val snackbarResult = scaffoldState.snackbarHostState.showSnackbar(
-                            "Deleted ${project.name}",
-                            actionLabel = "Undo"
-                        )
-                        if (snackbarResult == SnackbarResult.ActionPerformed) {
-                            onUndoDelete(project)
-                        }
-                    }
-                }
+                onClick = { onProjectClick(project.id) },
+                onDeleteClick = { onDeleteRequest(project) }
             )
         }
     }
