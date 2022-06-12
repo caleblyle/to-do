@@ -1,17 +1,19 @@
 package com.example.todotodone.ui
 
 import android.content.res.Configuration
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.navigation.compose.rememberNavController
-import com.example.todotodone.ui.projects.ProjectListScreen
+import com.example.todotodone.ui.core.AppNavHost
 import com.example.todotodone.ui.theme.ToDoToDoneTheme
+import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 
+@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun MainApp() {
     ToDoToDoneTheme {
-        val navController = rememberNavController()
-        ProjectListScreen()
+        val navController = rememberAnimatedNavController()
+        AppNavHost(navController = navController)
     }
 }
 

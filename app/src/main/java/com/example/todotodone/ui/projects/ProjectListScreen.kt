@@ -16,7 +16,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.todotodone.R
 import com.example.todotodone.data.entities.Project
 import com.example.todotodone.ui.core.StyledFloatingActionButton
@@ -28,7 +28,8 @@ import kotlinx.coroutines.launch
 @Composable
 fun ProjectListScreen(
     modifier: Modifier = Modifier,
-    projectListViewModel: ProjectListViewModel = viewModel()
+    projectListViewModel: ProjectListViewModel = hiltViewModel(),
+    onProjectClick: (String) -> Unit,
 ) {
     val projects by projectListViewModel.projects.observeAsState()
     var openDialog by rememberSaveable { mutableStateOf(false) }
@@ -53,6 +54,7 @@ fun ProjectListScreen(
                 scaffoldState = scaffoldState,
                 onDelete = { projectListViewModel.deleteProject(it) },
                 onUndoDelete = { projectListViewModel.undoDeleteProject(it) },
+                onProjectClick = onProjectClick,
                 modifier = modifier
             )
         }
@@ -78,6 +80,7 @@ fun ProjectList(
     scaffoldState: ScaffoldState,
     onDelete: (Project) -> Unit,
     onUndoDelete: (Project) -> Unit,
+    onProjectClick: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val scope = rememberCoroutineScope()
@@ -89,7 +92,7 @@ fun ProjectList(
         ) { project ->
             ProjectCard(
                 name = project.name,
-                onClick = { },
+                onClick = { onProjectClick(project.name) },
                 onDeleteClick = {
                     scope.launch {
                         onDelete(project)
@@ -116,6 +119,6 @@ fun ProjectList(
 @Composable
 fun DefaultPreview() {
     ToDoToDoneTheme {
-        ProjectListScreen()
+        ProjectListScreen(onProjectClick = {})
     }
 }
