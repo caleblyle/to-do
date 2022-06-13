@@ -13,6 +13,12 @@ interface ProjectDao {
     @Query("SELECT name FROM projects WHERE id = :projectId LIMIT 1")
     fun getProjectName(projectId: Int): LiveData<String>
 
+    @Query("SELECT id FROM projects WHERE is_deleted = 0 ORDER BY id LIMIT 1")
+    fun getFirstProjectId(): Int
+
+    @Query("SELECT id FROM projects WHERE is_deleted = 0 ORDER BY id DESC LIMIT 1")
+    fun getLatestProjectId(): Int
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insert(vararg projects: Project)
 

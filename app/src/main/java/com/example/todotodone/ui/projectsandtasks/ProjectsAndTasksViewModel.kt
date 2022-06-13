@@ -1,6 +1,5 @@
 package com.example.todotodone.ui.projectsandtasks
 
-import android.util.Log
 import androidx.lifecycle.*
 import com.example.todotodone.data.entities.Project
 import com.example.todotodone.data.entities.Task
@@ -38,13 +37,17 @@ class ProjectsAndTasksViewModel @Inject constructor(
 
     fun addProject(name: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            projectRepository.addProject(name)
+            val newId = projectRepository.addProject(name)
+            _selectedProjectId.postValue(newId)
         }
     }
 
     fun deleteProject(project: Project) {
         viewModelScope.launch(Dispatchers.IO) {
             projectRepository.deleteProject(project)
+            if(project.id == _selectedProjectId.value) {
+                _selectedProjectId.postValue(0)
+            }
         }
     }
 
@@ -81,12 +84,10 @@ class ProjectsAndTasksViewModel @Inject constructor(
     }
 
     init {
+        //Select the first project by default
         viewModelScope.launch(Dispatchers.IO)  {
-            val firstId = projectRepository.getProjects().value?.firstOrNull()
-            Log.i("Test 1", "First Id: $firstId")
-            if(firstId != null) {
-                _selectedProjectId.postValue(firstId.id)
-            }
+            val firstId = projectRepository.getFirstProject()
+            _selectedProjectId.postValue(firstId)
         }
     }
 

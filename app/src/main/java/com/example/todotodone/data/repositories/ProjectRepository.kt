@@ -27,8 +27,13 @@ class ProjectRepository @Inject constructor(
         projectDao.update(project)
     }
 
-    fun addProject(name: String) {
+    fun addProject(name: String): Int {
         val newProject = Project(name = name)
         projectDao.insert(newProject)
+        return projectDao.getLatestProjectId()
+    }
+
+    fun getFirstProject(): Int {
+        return projectDao.getFirstProjectId()
     }
 }

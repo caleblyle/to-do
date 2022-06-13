@@ -1,13 +1,15 @@
 package com.example.todotodone.data
 
 import android.content.Context
-import androidx.room.*
+import androidx.room.Database
+import androidx.room.Room
+import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import com.example.todotodone.data.converters.Converters
 import com.example.todotodone.data.dao.ProjectDao
 import com.example.todotodone.data.dao.TaskDao
-import com.example.todotodone.data.entities.Task
 import com.example.todotodone.data.entities.Project
-import dagger.hilt.android.qualifiers.ApplicationContext
+import com.example.todotodone.data.entities.Task
 
 @Database(
     entities = [

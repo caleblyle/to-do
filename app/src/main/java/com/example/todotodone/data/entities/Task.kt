@@ -28,6 +28,4 @@ data class Task(
     @ColumnInfo(name = "is_deleted")
     var isDeleted: Boolean = false
 
-) {
-
-}
+)

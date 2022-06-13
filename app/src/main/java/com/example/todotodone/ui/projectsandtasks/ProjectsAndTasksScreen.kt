@@ -41,11 +41,13 @@ fun ProjectsAndTasksScreen(
         scaffoldState = scaffoldState,
         topBar = { TopAppBar(title = { Text(stringResource(R.string.projects_title)) }) },
         floatingActionButton = {
-            StyledFloatingActionButton(
-                icon = Icons.Filled.Add,
-                contentDescription = stringResource(id = R.string.new_task),
-                onClick = { openNewTaskDialog = true }
-            )
+            if((selectedProjectId ?: 0) != 0){
+                StyledFloatingActionButton(
+                    icon = Icons.Filled.Add,
+                    contentDescription = stringResource(id = R.string.new_task),
+                    onClick = { openNewTaskDialog = true }
+                )
+            }
         },
         modifier = modifier
     ) {
@@ -83,7 +85,7 @@ fun ProjectsAndTasksScreen(
                     onClick = { openNewProjectDialog = true },
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    Text(text = "New Project")
+                    Text(text = stringResource(R.string.new_project))
                 }
             }
             Divider(
@@ -128,7 +130,7 @@ fun ProjectsAndTasksScreen(
     }
     if (openNewProjectDialog) {
         TextDialog(
-            stringResource(id = R.string.new_list),
+            stringResource(id = R.string.new_project),
             stringResource(id = R.string.project_label),
             stringResource(id = R.string.cancel),
             stringResource(id = R.string.create),

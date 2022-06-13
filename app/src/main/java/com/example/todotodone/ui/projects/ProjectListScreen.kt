@@ -40,7 +40,7 @@ fun ProjectListScreen(
         floatingActionButton = {
             StyledFloatingActionButton(
                 icon = Icons.Filled.Add,
-                contentDescription = stringResource(id = R.string.new_list),
+                contentDescription = stringResource(id = R.string.new_project),
                 onClick = { openDialog = true }
             )
         },
@@ -70,7 +70,7 @@ fun ProjectListScreen(
     }
     if (openDialog) {
         TextDialog(
-            stringResource(id = R.string.new_list),
+            stringResource(id = R.string.new_project),
             stringResource(id = R.string.project_label),
             stringResource(id = R.string.cancel),
             stringResource(id = R.string.create),

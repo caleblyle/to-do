@@ -26,8 +26,7 @@ fun AppNavHost(
     windowSize: WindowSizeClass,
     modifier: Modifier = Modifier
 ) {
-    //Should we use expanded or medium?
-    val isExpanded by remember { mutableStateOf(windowSize == WindowSizeClass.Expanded) }
+    val isExpanded by remember { mutableStateOf(windowSize != WindowSizeClass.Compact) }
     val startDestination = if(isExpanded) Screen.ProjectsAndTasks.name else Screen.ProjectList.name
 
     AnimatedNavHost(

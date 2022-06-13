@@ -2,8 +2,6 @@ package com.example.todotodone.di
 
 import android.content.Context
 import com.example.todotodone.data.AppDatabase
-import com.example.todotodone.data.dao.TaskDao
-import com.example.todotodone.data.dao.ProjectDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
