@@ -15,5 +15,5 @@
 
 ## Project Overview
 
-https://user-images.githubusercontent.com/88249131/173428094-bdc128b2-5611-4569-b3f7-af5e045cee66.mp4
+![phone_overview_2](https://user-images.githubusercontent.com/88249131/173428566-089aef43-bd8c-473b-9892-9189adaabbf5.gif)
 
