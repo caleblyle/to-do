@@ -88,7 +88,9 @@ fun ProjectList(
     list: List<Project>,
     onDeleteRequest: (Project) -> Unit,
     onProjectClick: (Int) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    showSelected: Boolean = false,
+    selectedProjectId: Int = 0
 ) {
     LazyColumn(modifier = modifier) {
         items(
@@ -97,6 +99,7 @@ fun ProjectList(
         ) { project ->
             ProjectCard(
                 name = project.name,
+                highlight = showSelected && selectedProjectId == project.id,
                 onClick = { onProjectClick(project.id) },
                 onDeleteClick = { onDeleteRequest(project) }
             )

@@ -5,15 +5,16 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.todotodone.ui.core.AppNavHost
+import com.example.todotodone.ui.core.WindowSizeClass
 import com.example.todotodone.ui.theme.ToDoToDoneTheme
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
-fun MainApp() {
+fun MainApp(windowSize: WindowSizeClass) {
     ToDoToDoneTheme {
         val navController = rememberAnimatedNavController()
-        AppNavHost(navController = navController)
+        AppNavHost(navController = navController, windowSize = windowSize)
     }
 }
 
@@ -21,5 +22,5 @@ fun MainApp() {
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
-    MainApp()
+    MainApp(windowSize = WindowSizeClass.Compact)
 }

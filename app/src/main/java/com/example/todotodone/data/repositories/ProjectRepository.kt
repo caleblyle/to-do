@@ -2,7 +2,6 @@ package com.example.todotodone.data.repositories
 
 import androidx.lifecycle.LiveData
 import com.example.todotodone.data.dao.ProjectDao
-import com.example.todotodone.data.dao.TaskDao
 import com.example.todotodone.data.entities.Project
 import javax.inject.Inject
 
@@ -32,6 +31,4 @@ class ProjectRepository @Inject constructor(
         val newProject = Project(name = name)
         projectDao.insert(newProject)
     }
-
-
 }

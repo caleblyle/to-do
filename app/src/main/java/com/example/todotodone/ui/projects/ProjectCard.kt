@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.*
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.todotodone.R
@@ -19,6 +20,7 @@ import com.example.todotodone.R
 @Composable
 fun ProjectCard(
     name: String,
+    highlight: Boolean = false,
     onClick: () -> Unit,
     onDeleteClick: () -> Unit
 ) {
@@ -26,6 +28,7 @@ fun ProjectCard(
     var openMenu by remember { mutableStateOf(false) }
 
     Card(
+        backgroundColor = if(highlight) Color.LightGray else MaterialTheme.colors.surface,
         modifier = Modifier
             .fillMaxWidth(1f)
             .padding(vertical = 4.dp, horizontal = 8.dp)

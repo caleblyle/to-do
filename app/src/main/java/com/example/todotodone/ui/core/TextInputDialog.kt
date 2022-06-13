@@ -1,5 +1,6 @@
 package com.example.todotodone.ui.core
 
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
@@ -35,7 +36,7 @@ fun TextDialog(
         properties = DialogProperties(dismissOnClickOutside = false),
         text = {
             OutlinedTextField(
-                modifier = Modifier.focusRequester(focusRequester),
+                modifier = Modifier.fillMaxWidth().focusRequester(focusRequester),
                 value = newItemText,
                 onValueChange = { newItemText = it },
                 label = { Text(label) },
