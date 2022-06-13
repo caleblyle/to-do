@@ -15,7 +15,4 @@
 
 ## Project Overview
 
-![phone_overview_2](https://user-images.githubusercontent.com/88249131/173428566-089aef43-bd8c-473b-9892-9189adaabbf5.gif)
-
 <img src="https://user-images.githubusercontent.com/88249131/173428566-089aef43-bd8c-473b-9892-9189adaabbf5.gif" width="400" height="866"/>
-
