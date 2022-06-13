@@ -2,6 +2,7 @@ package com.example.todotodone.ui.projects
 
 import android.annotation.SuppressLint
 import android.content.res.Configuration
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
@@ -47,7 +48,7 @@ fun ProjectListScreen(
         modifier = modifier
     ) {
         if (projects.isNullOrEmpty()) {
-            EmptyProjectList()
+            EmptyProjectList(modifier = Modifier.fillMaxHeight())
         } else {
             ProjectList(
                 list = projects!!,
