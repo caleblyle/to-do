@@ -1,5 +1,6 @@
 package com.example.todotodone.ui.projectsandtasks
 
+import android.util.Log
 import androidx.lifecycle.*
 import com.example.todotodone.data.entities.Project
 import com.example.todotodone.data.entities.Task
@@ -22,11 +23,11 @@ class ProjectsAndTasksViewModel @Inject constructor(
         taskRepository.getTasksForProject(it)
     }
 
-    val tasks: LiveData<List<Task>>
-        get() = _tasks
-
     val projects: LiveData<List<Project>>
         get() = _projects
+
+    val tasks: LiveData<List<Task>>
+        get() = _tasks
 
     val selectedProjectId: LiveData<Int>
         get() = _selectedProjectId
@@ -72,6 +73,7 @@ class ProjectsAndTasksViewModel @Inject constructor(
     }
 
     fun undoDeleteTask(task: Task) {
+        Log.i("Test", "Undoing delete")
         viewModelScope.launch(Dispatchers.IO) {
             taskRepository.undoDeleteTask(task)
         }

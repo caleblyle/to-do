@@ -1,6 +1,7 @@
 package com.example.todotodone.ui.projects
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -13,6 +14,7 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.todotodone.R
@@ -26,9 +28,10 @@ fun ProjectCard(
 ) {
 
     var openMenu by remember { mutableStateOf(false) }
+    val selectedColor = if(isSystemInDarkTheme()) Color.DarkGray else Color.LightGray
 
     Card(
-        backgroundColor = if(highlight) Color.LightGray else MaterialTheme.colors.surface,
+        backgroundColor = if(highlight) selectedColor else MaterialTheme.colors.surface,
         modifier = Modifier
             .fillMaxWidth(1f)
             .padding(vertical = 4.dp, horizontal = 8.dp)

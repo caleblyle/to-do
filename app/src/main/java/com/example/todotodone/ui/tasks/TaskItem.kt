@@ -2,6 +2,7 @@ package com.example.todotodone.ui.tasks
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -21,13 +22,13 @@ fun TaskItem(
     onCheckedChange: (Boolean) -> Unit,
     onDeleteClick: (Task) -> Unit
 ) {
-    var openMenu by remember { mutableStateOf(false) }
-
     Row(modifier = Modifier.padding(8.dp)) {
-        Checkbox(
-            checked = checked,
-            onCheckedChange = { checked -> onCheckedChange(checked) },
-        )
+        Column {
+            Checkbox(
+                checked = checked,
+                onCheckedChange = { checked -> onCheckedChange(checked) }
+            )
+        }
         Column(
             modifier = Modifier
                 .weight(1f)
@@ -37,27 +38,38 @@ fun TaskItem(
             Text(task.taskDescription)
         }
         Column {
-            IconButton(onClick = { openMenu = true }) {
-                Icon(
-                    imageVector = Icons.Filled.MoreVert,
-                    contentDescription = stringResource(R.string.options)
-                )
-            }
-            if(openMenu) {
-                DropdownMenu(
-                    expanded = openMenu,
-                    onDismissRequest = { openMenu = false}
-                ) {
-                    DropdownMenuItem(
-                        onClick = {
-                            onDeleteClick(task)
-                            openMenu = false
-                        }
-                    )
-                    {
-                        Text(stringResource(id = R.string.delete))
-                    }
+            TaskItemContextMenu(
+                onDeleteClick = {
+                    onDeleteClick(task)
                 }
+            )
+        }
+    }
+}
+
+@Composable
+fun TaskItemContextMenu(onDeleteClick: () -> Unit) {
+    var openMenu by remember { mutableStateOf(false) }
+
+    IconButton(onClick = { openMenu = true }) {
+        Icon(
+            imageVector = Icons.Filled.MoreVert,
+            contentDescription = stringResource(R.string.options)
+        )
+    }
+    if (openMenu) {
+        DropdownMenu(
+            expanded = openMenu,
+            onDismissRequest = { openMenu = false }
+        ) {
+            DropdownMenuItem(
+                onClick = {
+                    onDeleteClick()
+                    openMenu = false
+                }
+            )
+            {
+                Text(stringResource(id = R.string.delete))
             }
         }
     }
