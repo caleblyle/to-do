@@ -12,3 +12,8 @@
 - Allow deleting a to-do from a list
 - Use Room to persist lists and to-dos to disk
 - Use Jetpack Compose for all of your UIs
+
+## Project Overview
+
+https://user-images.githubusercontent.com/88249131/173428094-bdc128b2-5611-4569-b3f7-af5e045cee66.mp4
+
