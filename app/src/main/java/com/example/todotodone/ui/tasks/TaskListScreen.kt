@@ -52,7 +52,7 @@ fun TaskListScreen(
             TopAppBar(
                 title = {
                     Text(
-                        projectName ?: "Unknown",
+                        projectName ?: stringResource(id = R.string.unknown),
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
                     )
@@ -154,9 +154,6 @@ fun TaskList(
                 onCheckedChange = { checked -> onTaskCompletionChanged(task, checked) },
                 onDeleteClick = { onDeleteRequest(it) }
             )
-            /*if(index < (list.size - 1)) {
-                Divider(color = Color.Black, thickness = 1.dp)
-            }*/
         }
     }
 }
@@ -201,7 +198,7 @@ fun TaskItem(
                         }
                     )
                     {
-                        Text("Delete")
+                        Text(stringResource(id = R.string.delete))
                     }
                 }
             }

@@ -14,10 +14,11 @@ import dagger.hilt.android.qualifiers.ApplicationContext
         Project::class,
         Task::class
     ],
-    version = 1,
-    exportSchema = false)
+    version = 2,
+    exportSchema = false
+)
 @TypeConverters(Converters::class)
-abstract class AppDatabase: RoomDatabase() {
+abstract class AppDatabase : RoomDatabase() {
 
     //DAOs
     abstract fun projectDao(): ProjectDao
@@ -26,11 +27,14 @@ abstract class AppDatabase: RoomDatabase() {
     companion object {
 
         fun buildDatabase(context: Context): AppDatabase {
-            return Room.databaseBuilder(
-                context,
-                AppDatabase::class.java,
-                "todo_database"
-            ).build()
+            return Room
+                .databaseBuilder(
+                    context,
+                    AppDatabase::class.java,
+                    "todo_database"
+                )
+                .fallbackToDestructiveMigration()
+                .build()
         }
 
     }

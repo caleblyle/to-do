@@ -1,10 +1,8 @@
 package com.example.todotodone.ui.core
 
-import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.*
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
-import androidx.compose.animation.slideInHorizontally
-import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -27,7 +25,11 @@ fun AppNavHost(navController: NavHostController, modifier: Modifier = Modifier) 
         modifier = modifier
     ) {
         composable(
-            route = Screen.ProjectList.name
+            route = Screen.ProjectList.name,
+            enterTransition = { fadeIn() },
+            popEnterTransition = { fadeIn() },
+            exitTransition = { fadeOut() },
+            popExitTransition = { fadeOut() }
         ) {
             ProjectListScreen(onProjectClick = { projectId -> navController.navigate("${Screen.TaskList.name}/$projectId") })
         }
@@ -42,6 +44,10 @@ fun AppNavHost(navController: NavHostController, modifier: Modifier = Modifier) 
                 slideInHorizontally(initialOffsetX = { 1500 }, animationSpec = springSpec )
             },
             exitTransition = {
+                slideOutHorizontally(targetOffsetX = { 1500 }, animationSpec = springSpec )
+            },
+            popEnterTransition = null,
+            popExitTransition = {
                 slideOutHorizontally(targetOffsetX = { 1500 }, animationSpec = springSpec )
             }
         ) {

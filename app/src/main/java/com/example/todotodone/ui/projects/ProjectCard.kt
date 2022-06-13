@@ -58,7 +58,7 @@ fun ProjectCard(
                             }
                         )
                         {
-                            Text("Delete")
+                            Text(stringResource(id = R.string.delete))
                         }
                     }
                 }

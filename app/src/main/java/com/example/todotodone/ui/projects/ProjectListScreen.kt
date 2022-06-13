@@ -32,10 +32,11 @@ fun ProjectListScreen(
     var openDialog by rememberSaveable { mutableStateOf(false) }
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
+    val undoString = stringResource(id = R.string.undo)
 
     Scaffold(
         scaffoldState = scaffoldState,
-        topBar = { TopAppBar(title = { Text("Projects") }) },
+        topBar = { TopAppBar(title = { Text(stringResource(id = R.string.projects_title)) }) },
         floatingActionButton = {
             StyledFloatingActionButton(
                 icon = Icons.Filled.Add,
@@ -55,7 +56,7 @@ fun ProjectListScreen(
                         projectListViewModel.deleteProject(it)
                         val snackBarResult = scaffoldState.snackbarHostState.showSnackbar(
                             "Deleted ${it.name}",
-                            actionLabel = "Undo"
+                            actionLabel = undoString
                         )
                         if (snackBarResult == SnackbarResult.ActionPerformed) {
                             projectListViewModel.undoDeleteProject(it)
